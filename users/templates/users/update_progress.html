@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Skill Progress</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .back {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Update Progress</h1>
+
+    <h2>{{ skill.name }}</h2>
+
+    {% if progress %}
+
+        <p>
+            Current Progress:
+            <strong>{{ progress.progress_percentage }}%</strong>
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>
+                Enter your progress (%)
+            </label>
+
+            <input
+                type="number"
+                name="progress_percentage"
+                min="0"
+                max="100"
+                value="{{ progress.progress_percentage }}"
+                required
+            >
+
+            <input
+                type="hidden"
+                name="job_role_id"
+                value="{{ request.GET.job_role_id }}"
+            >
+
+            <button type="submit">
+                Update Progress
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <p>No progress record found for this skill.</p>
+
+    {% endif %}
+
+    <a
+        href="{% url 'job_role_selection' %}"
+        class="back">
+        ← Back to Careers
+    </a>
+
+</div>
+
+</body>
+</html>

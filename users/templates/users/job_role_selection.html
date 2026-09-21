@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Job Role</title>
+</head>
+
+<body>
+
+    <h1>Select Your Career</h1>
+
+    {% for role in job_roles %}
+
+        <h2>{{ role.name }}</h2>
+
+        <a href="{% url 'skill_gap_analysis' role.id %}">
+            Analyze Skill Gap
+        </a>
+
+        <hr>
+
+    {% endfor %}
+
+</body>
+</html>

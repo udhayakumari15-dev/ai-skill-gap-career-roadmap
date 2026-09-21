@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career What-If Simulator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        .skill {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .skill:hover {
+            background: #f9fafb;
+        }
+
+        .skill label {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .skill input {
+            margin-right: 10px;
+        }
+
+        .level {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .scores {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .score-box {
+            flex: 1;
+            text-align: center;
+            padding: 25px;
+            border-radius: 12px;
+            background: #f3f4f6;
+        }
+
+        .score {
+            font-size: 38px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .improvement {
+            text-align: center;
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #ecfdf5;
+            color: #047857;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .scores {
+                flex-direction: column;
+            }
+
+            body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Career What-If Simulator</h1>
+
+    <p class="subtitle">
+        Explore how improving your skills could affect your career readiness.
+    </p>
+
+
+    <!-- CAREER ROLE -->
+     <
+
+    <div class="card">
+
+        <h2>1. Select Career Role</h2>
+
+        <form method="GET">
+
+            <select name="job_role" onchange="this.form.submit()">
+
+                <option value="">
+                    -- Select Career Role --
+                </option>
+
+                {% for role in job_roles %}
+
+                    <option value="{{ role.id }}"
+                        {% if selected_job_role and selected_job_role.id == role.id %}
+                            selected
+                        {% endif %}>
+
+                        {{ role.name }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </form>
+
+    </div>
+    <div class="card">
+    <h3>🧩 Skill Gaps</h3>
+
+    <p>
+        You currently have
+        <strong>{{ skill_gap_count }}</strong>
+        skill gaps.
+    </p>
+
+    <a href="{% url 'job_role_selection' %}" class="button">
+        Analyze Skills
+    </a>
+</div>
+
+
+    <!-- SKILLS -->
+
+    {% if selected_job_role %}
+
+    <div class="card">
+
+        <h2>2. Select Skills You Want to Improve</h2>
+
+        <p class="info">
+            Select one or more skills. The simulator will estimate how
+            improving these skills may affect your career readiness.
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="job_role"
+                value="{{ selected_job_role.id }}"
+            >
+
+            {% if skills %}
+
+                {% for skill in skills %}
+
+                <div class="skill">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="selected_skills"
+                            value="{{ skill.skill.id }}"
+                        >
+
+                        {{ skill.skill.name }}
+
+                    </label>
+
+                    <div class="level">
+
+                        Current Level:
+                        <strong>{{ skill.current_level }}</strong>
+
+                        &nbsp; → &nbsp;
+
+                        Target Level:
+                        <strong>{{ skill.target_level }}</strong>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+                <button class="button" type="submit">
+                    Simulate Career Improvement
+                </button>
+
+            {% else %}
+
+                <p>
+                    No skills are currently available for simulation.
+                </p>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- RESULT -->
+
+    {% if simulation %}
+
+    <div class="card">
+
+        <h2>3. Simulation Result</h2>
+
+        <p class="info">
+            This simulation shows your current readiness compared with
+            the estimated readiness after improving the selected skills.
+        </p>
+
+        <div class="scores">
+
+            <div class="score-box">
+
+                <div>Current Readiness</div>
+
+                <div class="score">
+                    {{ simulation.current_score }}%
+                </div>
+
+            </div>
+
+
+            <div class="score-box">
+
+                <div>Simulated Readiness</div>
+
+                <div class="score">
+                    {{ simulation.simulated_score }}%
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {% if simulation.simulated_score > simulation.current_score %}
+
+        <div class="improvement">
+
+            Your career readiness can improve by
+           <strong> {{ improvement}}%</strong>
+            based on this simulation.
+
+        </div>
+
+        {% else %}
+
+        <div class="improvement">
+
+            No additional improvement was calculated
+            from the selected skills.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+<br>
+
+<a href="{% url 'job_role_selection' %}">
+    Back to Job Roles
+</a>
+
+</body>
+</html>

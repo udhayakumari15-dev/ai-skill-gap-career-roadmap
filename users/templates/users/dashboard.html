@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        .welcome {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 16px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+<div style="text-align: right; padding: 15px;">
+    <a href="{% url 'logout' %}"
+       style="background: #dc3545;
+              color: white;
+              padding: 10px 18px;
+              text-decoration: none;
+              border-radius: 6px;">
+        Logout
+    </a>
+</div>
+<div class="container">
+
+    <h1>Dashboard</h1>
+
+    <p class="welcome">
+        Welcome, {{ profile.full_name }}
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>🎯 Career Goal</h3>
+
+            <p>
+                {{ profile.target_career|default:"Not selected yet" }}
+            </p>
+
+            <a href="{% url 'job_role_selection' %}" class="button">
+                Choose Job Role
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>🧩 Skill Gap Analysis</h3>
+
+            <p>
+                Analyze your skills and find what you need to improve.
+            </p>
+
+            <a href="{% url 'job_role_selection' %}" class="button">
+                Analyze Skills
+            </a>
+        </div>
+        
+
+
+        <div class="card">
+            <h3>🗺️ Adaptive Roadmap</h3>
+
+            <p>
+                Follow your personalized career learning roadmap.
+            </p>
+
+            <a href="{% url 'job_role_selection' %}" class="button">
+                View Roadmap
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>💼 Career Recommendations</h3>
+
+            <p>
+                See career roles that match your skills.
+            </p>
+
+            <a href="{% url 'career_recommendations' %}" class="button">
+                View Recommendations
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>🔮 Career Simulation</h3>
+
+            <p>
+                Try different skills and see how your readiness can change.
+            </p>
+
+            <a href="{% url 'career_simulation' %}" class="button">
+                Run Simulation
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
