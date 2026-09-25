@@ -1,152 +1,745 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
+{% load static %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 30px;
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | CareerPath AI</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #080f1f;
+        color: #f1f5f9;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        height: 72px;
+        background: #0d1629;
+        border-bottom: 1px solid #1e2b44;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 42px;
+    }
+
+    .logo {
+        font-size: 21px;
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .logo span {
+        color: #6366f1;
+    }
+
+    .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        color: #cbd5e1;
+        font-size: 14px;
+    }
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #1d4ed8;
+        color: white;
+
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .logout {
+        margin-left: 12px;
+        padding: 8px 13px;
+        border: 1px solid #334155;
+        border-radius: 7px;
+        color: #94a3b8;
+        font-size: 13px;
+        transition: 0.2s;
+    }
+
+    .logout:hover {
+        color: #ffffff;
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.08);
+    }
+
+
+    /* ================= MAIN ================= */
+
+    .container {
+        max-width: 1450px;
+        margin: 0 auto;
+
+        padding: 30px 42px;
+    }
+
+
+    /* ================= HERO ================= */
+
+    .welcome {
+        min-height: 275px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        overflow: hidden;
+
+        border-radius: 18px;
+
+        background:
+            radial-gradient(
+                circle at 75% 45%,
+                rgba(37, 99, 235, 0.25),
+                transparent 40%
+            ),
+            linear-gradient(
+                135deg,
+                #0d1830,
+                #0b1735
+            );
+
+        border: 1px solid #1e3a68;
+
+        margin-bottom: 38px;
+    }
+
+    .welcome-text {
+        width: 52%;
+        padding: 42px;
+    }
+
+    .welcome-label {
+        color: #60a5fa;
+
+        font-size: 12px;
+        font-weight: bold;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 12px;
+    }
+
+    .welcome h1 {
+        font-size: 34px;
+
+        margin-bottom: 12px;
+
+        letter-spacing: -0.5px;
+    }
+
+    .welcome p {
+        color: #94a3b8;
+
+        font-size: 15px;
+        line-height: 1.7;
+
+        max-width: 570px;
+    }
+
+    .welcome-image {
+        width: 48%;
+        height: 275px;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .welcome-image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: right center;
+
+        opacity: 0.9;
+
+        mix-blend-mode: screen;
+    }
+
+
+    /* ================= SECTION TITLE ================= */
+
+    .section-heading {
+        display: flex;
+        align-items: center;
+
+        gap: 12px;
+
+        margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+        font-size: 22px;
+    }
+
+    .section-line {
+        width: 45px;
+        height: 3px;
+
+        background: #3b82f6;
+
+        border-radius: 5px;
+    }
+
+
+    /* ================= CAREER CARDS ================= */
+
+    .cards {
+        display: grid;
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+        gap: 18px;
+    }
+
+    .card {
+        background: #101a2d;
+
+        border: 1px solid #20304a;
+
+        border-radius: 14px;
+
+        padding: 25px;
+
+        min-height: 260px;
+
+        transition: 0.25s;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+
+        border-color: #31558c;
+
+        box-shadow:
+            0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+
+    /* ================= CARD ICON ================= */
+
+    .card-icon {
+        width: 48px;
+        height: 48px;
+
+        border-radius: 12px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 21px;
+
+        margin-bottom: 18px;
+    }
+
+    .blue {
+        background: rgba(37, 99, 235, 0.18);
+        color: #60a5fa;
+    }
+
+    .purple {
+        background: rgba(99, 102, 241, 0.18);
+        color: #a78bfa;
+    }
+
+    .green {
+        background: rgba(20, 184, 166, 0.18);
+        color: #2dd4bf;
+    }
+
+    .orange {
+        background: rgba(249, 115, 22, 0.18);
+        color: #fb923c;
+    }
+
+
+    /* ================= CARD CONTENT ================= */
+
+    .card-number {
+        color: #64748b;
+
+        font-size: 11px;
+        font-weight: bold;
+
+        margin-bottom: 8px;
+    }
+
+    .card h3 {
+        font-size: 16px;
+
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        color: #94a3b8;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+
+        min-height: 62px;
+
+        margin-bottom: 20px;
+    }
+
+    .button {
+        font-size: 13px;
+
+        font-weight: bold;
+
+        color: #60a5fa;
+
+        transition: 0.2s;
+    }
+
+    .button:hover {
+        color: #93c5fd;
+    }
+
+
+    /* ================= STATISTICS ================= */
+
+    .stats {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 18px;
+
+        margin-top: 25px;
+    }
+
+    .stat {
+        position: relative;
+
+        overflow: hidden;
+
+        background: #101a2d;
+
+        border: 1px solid #20304a;
+
+        border-radius: 14px;
+
+        padding: 24px;
+    }
+
+    .stat-label {
+        color: #94a3b8;
+
+        font-size: 13px;
+
+        margin-bottom: 9px;
+    }
+
+    .stat-value {
+        font-size: 27px;
+
+        font-weight: 700;
+
+        color: #f8fafc;
+    }
+
+    .stat-glow {
+        position: absolute;
+
+        right: -30px;
+        bottom: -40px;
+
+        width: 130px;
+        height: 130px;
+
+        border-radius: 50%;
+
+        background: rgba(37, 99, 235, 0.12);
+
+        filter: blur(10px);
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    .footer {
+        text-align: center;
+
+        color: #64748b;
+
+        font-size: 11px;
+
+        padding: 38px 20px 25px;
+    }
+
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 1050px) {
+
+        .cards {
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+
+        .welcome-text {
+            width: 55%;
+        }
+
+        .welcome-image {
+            width: 45%;
+        }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .navbar {
+            padding: 0 20px;
         }
 
         .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        h1 {
-            margin-bottom: 5px;
+            padding: 22px 18px;
         }
 
         .welcome {
-            color: #666;
-            margin-bottom: 30px;
+            flex-direction: column;
+
+            align-items: stretch;
+        }
+
+        .welcome-text {
+            width: 100%;
+
+            padding: 28px;
+        }
+
+        .welcome-image {
+            width: 100%;
+            height: 190px;
         }
 
         .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
         }
 
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        .stats {
+            grid-template-columns: 1fr;
         }
 
-        .card h3 {
-            margin-top: 0;
+        .welcome h1 {
+            font-size: 27px;
         }
 
-        .button {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 16px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
+        .user {
+            font-size: 12px;
         }
 
-        .button:hover {
-            opacity: 0.9;
-        }
-    </style>
-</head>
+    }
 
-<body>
-<div style="text-align: right; padding: 15px;">
-    <a href="{% url 'logout' %}"
-       style="background: #dc3545;
-              color: white;
-              padding: 10px 18px;
-              text-decoration: none;
-              border-radius: 6px;">
-        Logout
-    </a>
-</div>
-<div class="container">
+</style>
 
-    <h1>Dashboard</h1>
+</head><body><!-- ================= NAVBAR ================= -->
 
-    <p class="welcome">
-        Welcome, {{ profile.full_name }}
-    </p>
+<nav class="navbar">
 
-    <div class="cards">
+    <div class="logo">
+        CareerPath <span>AI</span>
+    </div>
 
-        <div class="card">
-            <h3>🎯 Career Goal</h3>
+    <div class="user">
 
-            <p>
-                {{ profile.target_career|default:"Not selected yet" }}
-            </p>
-
-            <a href="{% url 'job_role_selection' %}" class="button">
-                Choose Job Role
-            </a>
+        <div class="avatar">
+            {{ request.user.username|first|upper }}
         </div>
 
+        {{ request.user.username }}
 
-        <div class="card">
-            <h3>🧩 Skill Gap Analysis</h3>
-
-            <p>
-                Analyze your skills and find what you need to improve.
-            </p>
-
-            <a href="{% url 'job_role_selection' %}" class="button">
-                Analyze Skills
-            </a>
-        </div>
-        
-
-
-        <div class="card">
-            <h3>🗺️ Adaptive Roadmap</h3>
-
-            <p>
-                Follow your personalized career learning roadmap.
-            </p>
-
-            <a href="{% url 'job_role_selection' %}" class="button">
-                View Roadmap
-            </a>
-        </div>
-
-
-        <div class="card">
-            <h3>💼 Career Recommendations</h3>
-
-            <p>
-                See career roles that match your skills.
-            </p>
-
-            <a href="{% url 'career_recommendations' %}" class="button">
-                View Recommendations
-            </a>
-        </div>
-
-
-        <div class="card">
-            <h3>🔮 Career Simulation</h3>
-
-            <p>
-                Try different skills and see how your readiness can change.
-            </p>
-
-            <a href="{% url 'career_simulation' %}" class="button">
-                Run Simulation
-            </a>
-        </div>
+        <a href="{% url 'logout' %}" class="logout">
+            Logout
+        </a>
 
     </div>
 
-</div>
+</nav>
 
-</body>
-</html>
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="welcome">
+
+        <div class="welcome-text">
+
+            <div class="welcome-label">
+                CAREER INTELLIGENCE PLATFORM
+            </div>
+
+            <h1>
+                Welcome back, {{ request.user.username }}
+            </h1>
+
+            <p>
+                Analyze your skills, explore career opportunities,
+                and build your personalized career roadmap.
+            </p>
+
+        </div>
+
+
+        <div class="welcome-image">
+
+            <img
+                src="{% static 'users/images/career-dashboard.png' %}"
+                alt="CareerPath AI career illustration"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CAREER TOOLS ================= -->
+
+    <div class="section-heading">
+
+        <h2>
+            Career Tools
+        </h2>
+
+        <div class="section-line"></div>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <!-- CARD 1 -->
+
+        <div class="card">
+
+            <div class="card-icon blue">
+                ◯
+            </div>
+
+            <div class="card-number">
+                01
+            </div>
+
+            <h3>
+                Skill Gap Analysis
+            </h3>
+
+            <p>
+                Compare your current skills with the
+                requirements of a selected job role.
+            </p>
+
+            <a
+                href="{% url 'job_role_selection' %}"
+                class="button"
+            >
+                Analyze Skills →
+            </a>
+
+        </div>
+
+
+        <!-- CARD 2 -->
+
+        <div class="card">
+
+            <div class="card-icon purple">
+                ◈
+            </div>
+
+            <div class="card-number">
+                02
+            </div>
+
+            <h3>
+                Adaptive Roadmap
+            </h3>
+
+            <p>
+                Follow a personalized roadmap and track
+                your progress toward your career goal.
+            </p>
+
+            <a
+                href="{% url 'job_role_selection' %}"
+                class="button"
+            >
+                View Roadmap →
+            </a>
+
+        </div>
+
+
+        <!-- CARD 3 -->
+
+        <div class="card">
+
+            <div class="card-icon green">
+                ★
+            </div>
+
+            <div class="card-number">
+                03
+            </div>
+
+            <h3>
+                Career Recommendations
+            </h3>
+
+            <p>
+                Explore job roles based on your current
+                skills and profile.
+            </p>
+
+            <a
+                href="{% url 'career_recommendations' %}"
+                class="button"
+            >
+                Explore Careers →
+            </a>
+
+        </div>
+
+
+        <!-- CARD 4 -->
+
+        <div class="card">
+
+            <div class="card-icon orange">
+                ◎
+            </div>
+
+            <div class="card-number">
+                04
+            </div>
+
+            <h3>
+                Career Simulation
+            </h3>
+
+            <p>
+                Test how improving your skills can affect
+                your career readiness.
+            </p>
+
+            <a
+                href="{% url 'career_simulation' %}"
+                class="button"
+            >
+                Run Simulation →
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Skill Gaps Analyzed
+            </div>
+
+            <div class="stat-value">
+                {{ skill_gap_count }}
+            </div>
+
+            <div class="stat-glow"></div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Simulations Run
+            </div>
+
+            <div class="stat-value">
+                {{ simulation_count }}
+            </div>
+
+            <div class="stat-glow"></div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Current Target Career
+            </div>
+
+            <div
+                class="stat-value"
+                style="font-size: 18px;"
+            >
+                {{ profile.target_career|default:"Not selected" }}
+            </div>
+
+            <div class="stat-glow"></div>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    AI-Powered Skill Gap Analysis & Adaptive Career Roadmap System
+
+</footer>
+
+</body></html>

@@ -1,110 +1,475 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Update Skill Progress</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Update Skill Progress | CareerPath AI</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            padding: 40px;
-        }
 
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            margin-bottom: 10px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
+        * {
             box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #4f46e5;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b1120;
+            color: #f8fafc;
+            min-height: 100vh;
         }
 
-        .back {
-            display: block;
-            margin-top: 15px;
-            text-align: center;
+        .page {
+            max-width: 850px;
+            margin: auto;
+            padding: 45px 25px;
         }
+
+        /* BRAND */
+
+        .brand {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #60a5fa;
+            margin-bottom: 25px;
+        }
+
+
+        /* MAIN CARD */
+
+        .update-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* GRADIENT HEADER */
+
+        .card-header {
+            position: relative;
+            padding: 32px;
+            background: linear-gradient(
+                135deg,
+                #172554,
+                #1e1b4b
+            );
+            border-bottom: 1px solid #263b70;
+            overflow: hidden;
+        }
+
+
+        .card-header::before {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            top: -85px;
+            right: -45px;
+            background: rgba(96, 165, 250, 0.18);
+            border-radius: 50%;
+            filter: blur(6px);
+        }
+
+
+        .header-label {
+            position: relative;
+            color: #93c5fd;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+
+        .card-header h1 {
+            position: relative;
+            margin: 0;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+        }
+
+
+        .card-header p {
+            position: relative;
+            margin: 12px 0 0;
+            color: #bfdbfe;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* CONTENT */
+
+        .content {
+            padding: 32px;
+        }
+
+
+        /* SKILL CARD */
+
+        .skill-card {
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                #172554,
+                #1e1b4b
+            );
+            border: 1px solid #3b82f6;
+            border-radius: 15px;
+            padding: 24px;
+            margin-bottom: 28px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.18);
+            transition: all 0.3s ease;
+        }
+
+
+        .skill-card::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            top: -55px;
+            right: -35px;
+            background: rgba(96, 165, 250, 0.18);
+            border-radius: 50%;
+            filter: blur(5px);
+        }
+
+
+        .skill-card:hover {
+            transform: translateY(-3px);
+            border-color: #60a5fa;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.28);
+        }
+
+
+        .skill-label {
+            position: relative;
+            color: #93c5fd;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+
+        .skill-name {
+            position: relative;
+            font-size: 27px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+
+        /* CURRENT PROGRESS */
+
+        .current-progress {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(147, 197, 253, 0.18);
+            position: relative;
+        }
+
+
+        .current-label {
+            color: #93c5fd;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+
+        .current-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+
+        /* FORM */
+
+        .form-section {
+            margin-top: 5px;
+        }
+
+
+        .form-label {
+            display: block;
+            color: #e2e8f0;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+
+        .help-text {
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 14px;
+        }
+
+
+        .progress-input {
+            width: 100%;
+            padding: 15px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+
+        .progress-input:hover {
+            border-color: #475569;
+        }
+
+
+        .progress-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+        }
+
+
+        /* BUTTON */
+
+        .update-btn {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(37, 99, 235, 0.22);
+            transition: all 0.25s ease;
+        }
+
+
+        .update-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+        }
+
+
+        /* BACK */
+
+        .back {
+            display: inline-block;
+            margin-top: 22px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s ease;
+        }
+
+
+        .back:hover {
+            color: #60a5fa;
+        }
+
+
+        /* EMPTY STATE */
+
+        .empty-card {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 20px;
+            color: #94a3b8;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 30px 16px;
+            }
+
+            .card-header {
+                padding: 25px;
+            }
+
+            .card-header h1 {
+                font-size: 27px;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .skill-name {
+                font-size: 23px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
+<div class="page">
 
-    <h1>Update Progress</h1>
+    <div class="brand">
+        CAREERPATH AI
+    </div>
 
-    <h2>{{ skill.name }}</h2>
 
-    {% if progress %}
+    <div class="update-card">
 
-        <p>
-            Current Progress:
-            <strong>{{ progress.progress_percentage }}%</strong>
-        </p>
 
-        <form method="POST">
+        <!-- HEADER -->
 
-            {% csrf_token %}
+        <div class="card-header">
 
-            <label>
-                Enter your progress (%)
-            </label>
+            <div class="header-label">
+                SKILL PROGRESS
+            </div>
 
-            <input
-                type="number"
-                name="progress_percentage"
-                min="0"
-                max="100"
-                value="{{ progress.progress_percentage }}"
-                required
-            >
+            <h1>
+                Update Your Progress
+            </h1>
 
-            <input
-                type="hidden"
-                name="job_role_id"
-                value="{{ request.GET.job_role_id }}"
-            >
+            <p>
+                Keep your learning progress updated so your
+                adaptive career roadmap can respond to your development.
+            </p>
 
-            <button type="submit">
-                Update Progress
-            </button>
+        </div>
 
-        </form>
 
-    {% else %}
+        <!-- CONTENT -->
 
-        <p>No progress record found for this skill.</p>
+        <div class="content">
 
-    {% endif %}
 
-    <a
-        href="{% url 'job_role_selection' %}"
-        class="back">
-        ← Back to Careers
-    </a>
+            {% if progress %}
+
+
+                <!-- SKILL INFORMATION -->
+
+                <div class="skill-card">
+
+                    <div class="skill-label">
+                        CURRENT SKILL
+                    </div>
+
+                    <div class="skill-name">
+                        {{ skill.name }}
+                    </div>
+
+
+                    <div class="current-progress">
+
+                        <div class="current-label">
+                            CURRENT PROGRESS
+                        </div>
+
+                        <div class="current-value">
+                            {{ progress.progress_percentage }}%
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UPDATE FORM -->
+
+                <div class="form-section">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <label class="form-label">
+                            Enter Your New Progress
+                        </label>
+
+
+                        <div class="help-text">
+                            Enter a value between 0 and 100 percent.
+                        </div>
+
+
+                        <input
+                            type="number"
+                            name="progress_percentage"
+                            class="progress-input"
+                            min="0"
+                            max="100"
+                            value="{{ progress.progress_percentage }}"
+                            required
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="job_role_id"
+                            value="{{ request.GET.job_role_id }}"
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="update-btn">
+                            Update Progress →
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="empty-card">
+                    No progress record found for this skill.
+                </div>
+
+
+            {% endif %}
+
+
+            <a
+                href="{% url 'job_role_selection' %}"
+                class="back">
+                ← Back to Careers
+            </a>
+
+
+        </div>
+
+    </div>
 
 </div>
 
 </body>
+
 </html>

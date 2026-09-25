@@ -1,116 +1,500 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
-    <title>Login - Skill Gap Analysis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - CareerPath AI</title>
 
-    <style>
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: #070b14;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+
+    /* MAIN LAYOUT */
+
+    .login-wrapper {
+        width: 100%;
+        max-width: 1100px;
+        min-height: 650px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        background: #0b1120;
+        border: 1px solid #1e293b;
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+    }
+
+
+    /* LEFT SIDE */
+
+    .branding {
+        position: relative;
+        padding: 70px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .brand {
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: #60a5fa;
+        margin-bottom: 35px;
+    }
+
+    .branding h1 {
+        font-size: 52px;
+        line-height: 1.08;
+        margin: 0 0 22px;
+        max-width: 500px;
+        letter-spacing: -1.5px;
+    }
+
+    .branding h1 span {
+        color: #60a5fa;
+    }
+
+    .description {
+        color: #94a3b8;
+        font-size: 16px;
+        line-height: 1.7;
+        max-width: 470px;
+        margin-bottom: 40px;
+    }
+
+
+    /* CAREER FLOW */
+
+    .career-flow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .flow-item {
+        padding: 9px 13px;
+        border: 1px solid #263449;
+        background: #101827;
+        border-radius: 8px;
+        color: #cbd5e1;
+        font-size: 12px;
+    }
+
+    .arrow {
+        color: #475569;
+        font-size: 14px;
+    }
+
+
+    /* GEOMETRIC DECORATION */
+
+    .shape-one {
+        position: absolute;
+        width: 230px;
+        height: 230px;
+        right: -100px;
+        top: -90px;
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        transform: rotate(45deg);
+    }
+
+    .shape-two {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        right: 60px;
+        bottom: -85px;
+        border: 1px solid rgba(139, 92, 246, 0.22);
+        transform: rotate(45deg);
+    }
+
+    .line-one {
+        position: absolute;
+        width: 180px;
+        height: 1px;
+        background: rgba(96, 165, 250, 0.18);
+        right: 30px;
+        top: 120px;
+        transform: rotate(-35deg);
+    }
+
+    .line-two {
+        position: absolute;
+        width: 120px;
+        height: 1px;
+        background: rgba(139, 92, 246, 0.18);
+        right: 20px;
+        bottom: 150px;
+        transform: rotate(35deg);
+    }
+
+
+    /* RIGHT SIDE */
+
+    .login-section {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 45px;
+        background: #0d1424;
+        border-left: 1px solid #1e293b;
+    }
+
+
+    /* LOGIN CARD */
+
+    .login-box {
+        width: 100%;
+        max-width: 380px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .login-box h2 {
+        font-size: 30px;
+        margin: 0 0 8px;
+        color: #ffffff;
+    }
+
+    .login-subtitle {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 32px;
+    }
+
+
+    /* ERROR */
+
+    .error {
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+        color: #f87171;
+        padding: 11px 13px;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+
+    /* FORM */
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #cbd5e1;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px 14px;
+        margin-bottom: 20px;
+        background: #0a101d;
+        color: #ffffff;
+        border: 1px solid #263449;
+        border-radius: 8px;
+        outline: none;
+        font-size: 14px;
+        transition: border-color 0.25s ease,
+                    box-shadow 0.25s ease;
+    }
+
+    input::placeholder {
+        color: #475569;
+    }
+
+    input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+    }
+
+
+    /* LOGIN BUTTON */
+
+    button {
+        width: 100%;
+        padding: 13px;
+        margin-top: 4px;
+        background: #2563eb;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.25s ease;
+    }
+
+    button:hover {
+        background: #3b82f6;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18);
+    }
+
+
+    /* REGISTER */
+
+    .register {
+        text-align: center;
+        margin-top: 24px;
+        color: #64748b;
+        font-size: 13px;
+    }
+
+    .register a {
+        color: #60a5fa;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .register a:hover {
+        color: #93c5fd;
+    }
+
+
+    /* SMALL DECORATION BEHIND LOGIN */
+
+    .login-shape {
+        position: absolute;
+        width: 190px;
+        height: 190px;
+        right: -105px;
+        bottom: -90px;
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        transform: rotate(45deg);
+    }
+
+    .login-shape-small {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        left: -45px;
+        top: 70px;
+        border: 1px solid rgba(139, 92, 246, 0.15);
+        transform: rotate(45deg);
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            padding: 20px;
+            overflow: auto;
         }
 
-        .login-box {
-            background: white;
-            width: 350px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        .login-wrapper {
+            grid-template-columns: 1fr;
+            min-height: auto;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
+        .branding {
+            padding: 45px 35px;
+            min-height: 380px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
+        .branding h1 {
+            font-size: 38px;
         }
 
-        input {
-            width: 100%;
+        .login-section {
+            border-left: none;
+            border-top: 1px solid #1e293b;
+            padding: 45px 30px;
+        }
+    }
+
+
+    @media (max-width: 500px) {
+
+        body {
             padding: 10px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
-            padding: 11px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
+        .login-wrapper {
+            border-radius: 18px;
         }
 
-        button:hover {
-            background: #1d4ed8;
+        .branding {
+            padding: 35px 25px;
         }
 
-        .error {
-            color: red;
-            text-align: center;
-            margin-bottom: 15px;
+        .branding h1 {
+            font-size: 32px;
         }
-    </style>
-</head>
 
-<body>
+        .description {
+            font-size: 14px;
+        }
 
-<div class="login-box">
+        .login-section {
+            padding: 35px 25px;
+        }
+    }
 
-    <h2>Login</h2>
+</style>
 
-    {% if error %}
-        <div class="error">
-            {{ error }}
+</head><body><div class="login-wrapper"><!-- LEFT BRANDING SECTION -->
+
+<div class="branding">
+
+    <div class="brand">
+        CAREERPATH AI
+    </div>
+
+    <h1>
+        Build the skills.<br>
+        <span>Reach the career.</span>
+    </h1>
+
+    <p class="description">
+        Discover your skill gaps, build an adaptive career roadmap,
+        and understand how your skills can shape your career path.
+    </p>
+
+
+    <div class="career-flow">
+
+        <div class="flow-item">
+            Profile
         </div>
-    {% endif %}
 
-    <form method="POST">
+        <div class="arrow">
+            →
+        </div>
 
-        {% csrf_token %}
+        <div class="flow-item">
+            Skill Gap
+        </div>
 
-        <label>Username</label>
-        <input
-            type="text"
-            name="username"
-            placeholder="Enter username"
-            required
-        >
+        <div class="arrow">
+            →
+        </div>
 
-        <label>Password</label>
-        <input
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            required
-        >
+        <div class="flow-item">
+            Roadmap
+        </div>
 
-        <button type="submit">
-            Login
-        </button>
-        <div style="text-align: center; margin-top: 20px;">
-    Don't have an account?
-    <a href="{% url 'register' %}"
-       style="color: #2563eb; text-decoration: none;">
-        Create Account
-    </a>
+        <div class="arrow">
+            →
+        </div>
+
+        <div class="flow-item">
+            Career
+        </div>
+
+    </div>
+
+
+    <!-- Geometric Shapes -->
+
+    <div class="shape-one"></div>
+    <div class="shape-two"></div>
+    <div class="line-one"></div>
+    <div class="line-two"></div>
+
 </div>
 
-    </form>
+
+
+<!-- LOGIN SECTION -->
+
+<div class="login-section">
+
+    <div class="login-box">
+
+        <h2>
+            Welcome back
+        </h2>
+
+        <p class="login-subtitle">
+            Sign in to continue your career journey.
+        </p>
+
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+
+            <button type="submit">
+                Sign In →
+            </button>
+
+
+            <div class="register">
+
+                Don't have an account?
+
+                <a href="{% url 'register' %}">
+                    Create Account
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- Geometric Shapes Behind Login -->
+
+    <div class="login-shape"></div>
+    <div class="login-shape-small"></div>
 
 </div>
 
-</body>
+</div></body>
 </html>

@@ -1,24 +1,260 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Select Job Role</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Choose Your Career | CareerPath AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b1120;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 30px;
+        }
+
+        /* Header */
+
+        .header {
+            margin-bottom: 45px;
+        }
+
+        .brand {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #60a5fa;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            max-width: 650px;
+            margin-top: 14px;
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Career Grid */
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .career-card {
+            position: relative;
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 18px;
+            padding: 30px;
+            min-height: 245px;
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .career-card::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 220px;
+            height: 220px;
+            background: rgba(59, 130, 246, 0.08);
+            border-radius: 50%;
+        }
+
+        .career-card:hover {
+            transform: translateY(-4px);
+            border-color: #2563eb;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Professional Icon */
+
+        .career-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #172554;
+            border: 1px solid #1d4ed8;
+            color: #60a5fa;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .career-card h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #f8fafc;
+        }
+
+        .career-card p {
+            margin: 12px 0 25px;
+            color: #94a3b8;
+            line-height: 1.6;
+            font-size: 14px;
+            max-width: 450px;
+        }
+
+        /* Button */
+
+        .analyze-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 17px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .analyze-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Back */
+
+        .back {
+            display: inline-block;
+            margin-top: 35px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .back:hover {
+            color: #60a5fa;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 750px) {
+
+            .page {
+                padding: 30px 18px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .career-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
 </head>
 
 <body>
 
-    <h1>Select Your Career</h1>
+<div class="page">
 
-    {% for role in job_roles %}
+    <div class="header">
 
-        <h2>{{ role.name }}</h2>
+        <div class="brand">
+            CAREERPATH AI
+        </div>
 
-        <a href="{% url 'skill_gap_analysis' role.id %}">
-            Analyze Skill Gap
-        </a>
+        <h1>Choose Your Target Career</h1>
 
-        <hr>
+        <p>
+            Select a career path to analyze your current skills,
+            identify skill gaps, and build a personalized roadmap
+            toward your target role.
+        </p>
 
-    {% endfor %}
+    </div>
+
+
+    <div class="career-grid">
+
+        {% for role in job_roles %}
+
+            <div class="career-card">
+
+                <div class="career-icon">
+
+                    {% if "Python" in role.name %}
+                        PY
+                    {% elif "Django" in role.name %}
+                        DJ
+                    {% elif "Web" in role.name %}
+                        WB
+                    {% elif "Data" in role.name %}
+                        DA
+                    {% else %}
+                        DEV
+                    {% endif %}
+
+                </div>
+
+
+                <h2>
+                    {{ role.name }}
+                </h2>
+
+
+                <p>
+                    Compare your current capabilities with the
+                    skills required for this professional role.
+                </p>
+
+
+                <a
+                    href="{% url 'skill_gap_analysis' role.id %}"
+                    class="analyze-btn"
+                >
+                    Analyze Skill Gap
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <a href="{% url 'dashboard' %}" class="back">
+        ← Back to Dashboard
+    </a>
+
+</div>
 
 </body>
+
 </html>

@@ -1,142 +1,583 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
-    <title>Create Account - Skill Gap Analysis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Create Account - CareerPath AI</title>
 
-    <style>
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: #070b14;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+
+    /* MAIN LAYOUT */
+
+    .register-wrapper {
+        width: 100%;
+        max-width: 1100px;
+        min-height: 650px;
+
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+
+        background: #0b1120;
+
+        border: 1px solid #1e293b;
+        border-radius: 24px;
+
+        overflow: hidden;
+        position: relative;
+    }
+
+
+    /* LEFT SIDE */
+
+    .branding {
+        position: relative;
+        padding: 70px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        overflow: hidden;
+    }
+
+    .brand {
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: #60a5fa;
+        margin-bottom: 35px;
+    }
+
+    .branding h1 {
+        font-size: 50px;
+        line-height: 1.08;
+        margin: 0 0 22px;
+        max-width: 500px;
+        letter-spacing: -1.5px;
+    }
+
+    .branding h1 span {
+        color: #60a5fa;
+    }
+
+    .description {
+        color: #94a3b8;
+        font-size: 16px;
+        line-height: 1.7;
+        max-width: 470px;
+        margin-bottom: 40px;
+    }
+
+
+    /* CAREER FLOW */
+
+    .career-flow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .flow-item {
+        padding: 9px 13px;
+
+        border: 1px solid #263449;
+        background: #101827;
+
+        border-radius: 8px;
+
+        color: #cbd5e1;
+        font-size: 12px;
+    }
+
+    .arrow {
+        color: #475569;
+        font-size: 14px;
+    }
+
+
+    /* GEOMETRIC SHAPES */
+
+    .shape-one {
+        position: absolute;
+
+        width: 230px;
+        height: 230px;
+
+        right: -100px;
+        top: -90px;
+
+        border: 1px solid rgba(96, 165, 250, 0.25);
+
+        transform: rotate(45deg);
+    }
+
+    .shape-two {
+        position: absolute;
+
+        width: 150px;
+        height: 150px;
+
+        right: 60px;
+        bottom: -85px;
+
+        border: 1px solid rgba(139, 92, 246, 0.22);
+
+        transform: rotate(45deg);
+    }
+
+    .line-one {
+        position: absolute;
+
+        width: 180px;
+        height: 1px;
+
+        background: rgba(96, 165, 250, 0.18);
+
+        right: 30px;
+        top: 120px;
+
+        transform: rotate(-35deg);
+    }
+
+    .line-two {
+        position: absolute;
+
+        width: 120px;
+        height: 1px;
+
+        background: rgba(139, 92, 246, 0.18);
+
+        right: 20px;
+        bottom: 150px;
+
+        transform: rotate(35deg);
+    }
+
+
+    /* RIGHT SIDE */
+
+    .register-section {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 45px;
+
+        background: #0d1424;
+
+        border-left: 1px solid #1e293b;
+    }
+
+
+    /* REGISTER FORM */
+
+    .register-box {
+        width: 100%;
+        max-width: 380px;
+
+        position: relative;
+        z-index: 2;
+    }
+
+    .register-box h2 {
+        font-size: 30px;
+        margin: 0 0 8px;
+        color: #ffffff;
+    }
+
+    .subtitle {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 32px;
+    }
+
+
+    /* ERROR */
+
+    .error {
+        background: rgba(239, 68, 68, 0.08);
+
+        border: 1px solid rgba(239, 68, 68, 0.25);
+
+        color: #f87171;
+
+        padding: 11px 13px;
+
+        border-radius: 8px;
+
+        font-size: 13px;
+
+        margin-bottom: 20px;
+    }
+
+
+    /* FORM */
+
+    label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #cbd5e1;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    input {
+        width: 100%;
+
+        padding: 13px 14px;
+
+        margin-bottom: 20px;
+
+        background: #0a101d;
+
+        color: #ffffff;
+
+        border: 1px solid #263449;
+
+        border-radius: 8px;
+
+        outline: none;
+
+        font-size: 14px;
+
+        transition:
+            border-color 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+    input::placeholder {
+        color: #475569;
+    }
+
+    input:focus {
+        border-color: #3b82f6;
+
+        box-shadow:
+            0 0 0 3px rgba(59, 130, 246, 0.08);
+    }
+
+
+    /* BUTTON */
+
+    button {
+        width: 100%;
+
+        padding: 13px;
+
+        margin-top: 4px;
+
+        background: #2563eb;
+
+        color: #ffffff;
+
+        border: none;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        font-size: 15px;
+        font-weight: 600;
+
+        transition: all 0.25s ease;
+    }
+
+    button:hover {
+        background: #3b82f6;
+
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 8px 20px rgba(37, 99, 235, 0.18);
+    }
+
+
+    /* LOGIN LINK */
+
+    .login-link {
+        text-align: center;
+
+        margin-top: 24px;
+
+        color: #64748b;
+
+        font-size: 13px;
+    }
+
+    .login-link a {
+        color: #60a5fa;
+
+        text-decoration: none;
+
+        font-weight: 600;
+    }
+
+    .login-link a:hover {
+        color: #93c5fd;
+    }
+
+
+    /* RIGHT SIDE SHAPES */
+
+    .register-shape {
+        position: absolute;
+
+        width: 190px;
+        height: 190px;
+
+        right: -105px;
+        bottom: -90px;
+
+        border: 1px solid rgba(96, 165, 250, 0.15);
+
+        transform: rotate(45deg);
+    }
+
+    .register-shape-small {
+        position: absolute;
+
+        width: 90px;
+        height: 90px;
+
+        left: -45px;
+        top: 70px;
+
+        border: 1px solid rgba(139, 92, 246, 0.15);
+
+        transform: rotate(45deg);
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
+            padding: 20px;
+            overflow: auto;
         }
 
-        .register-box {
-            background: white;
-            width: 350px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        .register-wrapper {
+            grid-template-columns: 1fr;
+            min-height: auto;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 10px;
+        .branding {
+            padding: 45px 35px;
+            min-height: 380px;
         }
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 25px;
+        .branding h1 {
+            font-size: 38px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
+        .register-section {
+            border-left: none;
+
+            border-top: 1px solid #1e293b;
+
+            padding: 45px 30px;
         }
 
-        input {
-            width: 100%;
+    }
+
+
+    @media (max-width: 500px) {
+
+        body {
             padding: 10px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
-            padding: 11px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
+        .register-wrapper {
+            border-radius: 18px;
         }
 
-        button:hover {
-            background: #1d4ed8;
+        .branding {
+            padding: 35px 25px;
         }
 
-        .error {
-            color: red;
-            text-align: center;
-            margin-bottom: 15px;
+        .branding h1 {
+            font-size: 32px;
         }
 
-        .login-link {
-            text-align: center;
-            margin-top: 20px;
+        .description {
+            font-size: 14px;
         }
 
-        .login-link a {
-            color: #2563eb;
-            text-decoration: none;
+        .register-section {
+            padding: 35px 25px;
         }
-    </style>
-</head>
 
-<body>
+    }
 
-<div class="register-box">
+</style>
 
-    <h2>Create Account</h2>
+</head><body><div class="register-wrapper"><!-- LEFT BRANDING -->
 
-    <div class="subtitle">
-        AI-Powered Skill Gap Analysis
+<div class="branding">
+
+    <div class="brand">
+        CAREERPATH AI
     </div>
 
-    {% if error %}
-        <div class="error">
-            {{ error }}
+    <h1>
+        Start your<br>
+        <span>career journey.</span>
+    </h1>
+
+    <p class="description">
+        Create your CareerPath AI account and start discovering
+        your skill gaps, personalized roadmap, and career opportunities.
+    </p>
+
+
+    <div class="career-flow">
+
+        <div class="flow-item">
+            Create Profile
         </div>
-    {% endif %}
 
-    <form method="POST">
+        <div class="arrow">
+            →
+        </div>
 
-        {% csrf_token %}
+        <div class="flow-item">
+            Analyze Skills
+        </div>
 
-        <label>Full Name</label>
-        <input
-            type="text"
-            name="full_name"
-            placeholder="Enter your full name"
-            required
-        >
+        <div class="arrow">
+            →
+        </div>
 
-        <label>Username</label>
-        <input
-            type="text"
-            name="username"
-            placeholder="Create a username"
-            required
-        >
+        <div class="flow-item">
+            Build Roadmap
+        </div>
 
-        <label>Password</label>
-        <input
-            type="password"
-            name="password"
-            placeholder="Create a password"
-            required
-        >
-
-        <button type="submit">
-            Create Account
-        </button>
-
-    </form>
-
-    <div class="login-link">
-        Already have an account?
-        <a href="{% url 'login' %}">Login</a>
     </div>
+
+
+    <!-- Geometric Shapes -->
+
+    <div class="shape-one"></div>
+    <div class="shape-two"></div>
+    <div class="line-one"></div>
+    <div class="line-two"></div>
 
 </div>
 
-</body>
+
+<!-- REGISTER SECTION -->
+
+<div class="register-section">
+
+    <div class="register-box">
+
+        <h2>
+            Create Account
+        </h2>
+
+        <div class="subtitle">
+            Start building your personalized career path.
+        </div>
+
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                name="full_name"
+                placeholder="Enter your full name"
+                required
+            >
+
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Create a username"
+                required
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Create a password"
+                required
+            >
+
+
+            <button type="submit">
+                Create Account →
+            </button>
+
+        </form>
+
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Geometric Shapes -->
+
+    <div class="register-shape"></div>
+    <div class="register-shape-small"></div>
+
+</div>
+
+</div></body>
 </html>

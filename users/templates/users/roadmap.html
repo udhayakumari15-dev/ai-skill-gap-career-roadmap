@@ -1,221 +1,596 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Career Roadmap</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adaptive Career Roadmap | CareerPath AI</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
-            padding: 30px;
+
+        * {
+            box-sizing: border-box;
         }
 
-        .container {
-            max-width: 1000px;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b1120;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1150px;
             margin: auto;
+            padding: 45px 30px;
+        }
+
+        /* HEADER */
+
+        .brand {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #60a5fa;
+            margin-bottom: 18px;
         }
 
         .header {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 35px;
         }
 
         .header h1 {
-            margin-bottom: 10px;
+            margin: 0;
+            font-size: 34px;
+            letter-spacing: -0.5px;
         }
 
-        .duration {
-            font-weight: bold;
+        .header p {
+            color: #94a3b8;
+            line-height: 1.7;
+            max-width: 750px;
+            margin: 15px 0 0;
         }
+
+        /* ROADMAP INFO */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 28px;
+        }
+.info-box {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        #172554,
+        #1e1b4b
+    );
+    border: 1px solid #3b82f6;
+    border-radius: 14px;
+    padding: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.18);
+    transition: all 0.3s ease;
+}
+
+.info-box::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: -45px;
+    right: -35px;
+    background: rgba(96, 165, 250, 0.18);
+    border-radius: 50%;
+    filter: blur(5px);
+}
+
+.info-box:hover {
+    transform: translateY(-4px);
+    border-color: #60a5fa;
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.30);
+}
+
+        .info-label {
+            font-size: 11px;
+            color: #64748b;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        /* ADAPTIVE NOTICE */
+
+        .adaptive-box {
+            margin-bottom: 35px;
+            padding: 18px 20px;
+            border: 1px solid #1e40af;
+            background: #0f1b35;
+            border-radius: 12px;
+        }
+
+        .adaptive-title {
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 6px;
+        }
+
+        .adaptive-text {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* SECTION TITLE */
+
+        .section-title {
+            margin: 0 0 20px;
+            font-size: 22px;
+        }
+
+        .section-subtitle {
+            margin-top: -12px;
+            margin-bottom: 25px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* SKILL CARD */
 
         .skill-card {
-            background: white;
-            padding: 25px;
+            position: relative;
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 18px;
+            padding: 28px;
             margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.25s ease;
         }
 
-        .skill-header {
+        .skill-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .skill-top {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .skill-number {
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
         }
 
         .skill-name {
-            font-size: 22px;
-            font-weight: bold;
+            font-size: 23px;
+            font-weight: 600;
         }
 
         .priority {
-            background: #eee;
             padding: 7px 12px;
-            border-radius: 20px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            border-radius: 8px;
+            color: #cbd5e1;
+            font-size: 12px;
+            white-space: nowrap;
         }
 
-        .info {
+        /* SKILL DETAILS */
+
+        .details {
             display: flex;
-            gap: 40px;
-            margin-top: 15px;
-            color: #555;
+            gap: 45px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .detail-label {
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* PROGRESS */
+
+        .progress-section {
+            margin-top: 25px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 9px;
+        }
+
+        .progress-label {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .progress-percentage {
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .progress-container {
-            background: #e5e7eb;
-            height: 12px;
-            border-radius: 10px;
-            margin-top: 20px;
+            width: 100%;
+            height: 8px;
+            background: #1e293b;
+            border-radius: 20px;
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
-            background: #4f46e5;
+            background: #2563eb;
+            border-radius: 20px;
         }
 
-        .progress-text {
-            margin-top: 8px;
-            font-weight: bold;
+        /* BUTTON */
+
+        .update-btn {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 11px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
         }
+
+        .update-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* COMPLETED */
+
+        .completed-card {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .completed-name {
+            font-weight: 600;
+        }
+
+        .completed-status {
+            color: #4ade80;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .empty-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 15px;
+            padding: 22px;
+            color: #64748b;
+        }
+
+        /* BACK BUTTON */
 
         .back-button {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 20px;
-            background: #111827;
-            color: white;
+            margin-top: 30px;
+            padding: 11px 18px;
+            background: #1e293b;
+            color: #e2e8f0;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 9px;
+            font-size: 13px;
+            transition: 0.2s ease;
         }
+
+        .back-button:hover {
+            background: #334155;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .page {
+                padding: 30px 16px;
+            }
+
+            .header {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-top {
+                flex-direction: column;
+            }
+
+            .details {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .completed-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
+
+    <div class="brand">
+        CAREERPATH AI
+    </div>
+
+
+    <!-- ROADMAP HEADER -->
 
     <div class="header">
 
-        <h1>🗺️ {{ roadmap.title }}</h1>
+        <h1>{{ roadmap.title }}</h1>
 
         <p>
             {{ roadmap.description }}
         </p>
 
-        <p class="duration">
-            ⏱️ Duration: {{ roadmap.duration_weeks }} weeks
-        </p>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    ROADMAP DURATION
+                </div>
+
+                <div class="info-value">
+                    {{ roadmap.duration_weeks }} Weeks
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    SKILLS TO DEVELOP
+                </div>
+
+                <div class="info-value">
+                    {{ roadmap_skills|length }}
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    ROADMAP TYPE
+                </div>
+
+                <div class="info-value">
+                    Adaptive
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 
-    <h2>🎯 Skills You Need to Improve</h2>
+    <!-- ADAPTIVE INFORMATION -->
+
+    <div class="adaptive-box">
+
+        <div class="adaptive-title">
+            Adaptive Roadmap
+        </div>
+
+        <div class="adaptive-text">
+            Your roadmap priorities are adjusted according to your
+            current skill progress and target career requirements.
+        </div>
+
+    </div>
+
+
+    <!-- ACTIVE SKILLS -->
+
+    <h2 class="section-title">
+        Skills to Develop
+    </h2>
+
+    <p class="section-subtitle">
+        Follow the roadmap in priority order and update your progress as you learn.
+    </p>
 
 
     {% for item in roadmap_skills %}
 
         <div class="skill-card">
 
-            <div class="skill-header">
+            <div class="skill-top">
 
-                <div class="skill-name">
-                    {{ item.skill.name }}
+                <div>
+
+                    <div class="skill-number">
+                        PRIORITY {{ item.priority }}
+                    </div>
+
+                    <div class="skill-name">
+                        {{ item.skill.name }}
+                    </div>
+
                 </div>
+
 
                 <div class="priority">
-                    ⭐ Priority {{ item.priority }}
+                    Target Level {{ item.target_level }}
                 </div>
 
             </div>
 
 
-            <div class="info">
+            <div class="details">
 
                 <div>
-                    🎯 Target Level:
-                    <strong>{{ item.target_level }}</strong>
+
+                    <div class="detail-label">
+                        TARGET LEVEL
+                    </div>
+
+                    <div class="detail-value">
+                        {{ item.target_level }}
+                    </div>
+
                 </div>
+
 
                 <div>
-                    ⏱️ Estimated Hours:
-                    <strong>{{ item.estimated_hours }}</strong>
+
+                    <div class="detail-label">
+                        ESTIMATED HOURS
+                    </div>
+
+                    <div class="detail-value">
+                        {{ item.estimated_hours }} hours
+                    </div>
+
                 </div>
 
             </div>
 
 
-            <div class="progress-container">
+            <div class="progress-section">
 
-                <div
-                 class="progress-bar"
-                 style="width: {{ item.progress_percentage }}%;">
+                <div class="progress-header">
+
+                    <span class="progress-label">
+                        Current Progress
+                    </span>
+
+                    <span class="progress-percentage">
+                        {{ item.progress_percentage }}%
+                    </span>
+
+                </div>
+
+
+                <div class="progress-container">
+
+                    <div
+                        class="progress-bar"
+                        style="width: {{ item.progress_percentage }}%;">
+                    </div>
+
+                </div>
+
             </div>
 
-            </div>
 
-            <div class="progress-text">
-                Current Progress: {{item.progress_percentage}}%
-            </div>
-
-        <a href="{% url 'update_skill_progress' item.skill.id %}?job_role_id={{ roadmap.job_role.id }}" style="
-        display: inline-block;
-        margin-top: 15px;
-        padding: 10px 18px;
-        background: #111827;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-    ">
-    Update Progress
-</a>
+            <a
+                href="{% url 'update_skill_progress' item.skill.id %}?job_role_id={{ roadmap.job_role.id }}"
+                class="update-btn">
+                Update Progress →
+            </a>
 
         </div>
 
-   {% empty %}
+    {% empty %}
 
-    {% if completed_roadmap_skills %}
-        <div class="skill-card">
-            <p>🎉 All roadmap skills have been completed!</p>
-        </div>
-    {% else %}
-        <div class="skill-card">
-            <p>No skills have been added to this roadmap yet.</p>
-        </div>
-    {% endif %}
+        {% if completed_roadmap_skills %}
 
-{% endfor %}
-    <h2>✅ Completed Skills</h2>
+            <div class="empty-card">
+                All roadmap skills have been completed.
+            </div>
+
+        {% else %}
+
+            <div class="empty-card">
+                No skills have been added to this roadmap yet.
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+
+    <!-- COMPLETED SKILLS -->
+
+    <h2 class="section-title" style="margin-top: 45px;">
+        Completed Skills
+    </h2>
+
+    <p class="section-subtitle">
+        Skills where the target level has been achieved.
+    </p>
+
 
     {% for item in completed_roadmap_skills %}
 
-        <div class="skill-card">
+        <div class="completed-card">
 
-            <div class="skill-header">
-
-                <div class="skill-name">
-                    {{ item.skill.name }}
-                </div>
-
-                <div class="priority">
-                    ✅ Completed
-                </div>
-
+            <div class="completed-name">
+                {{ item.skill.name }}
             </div>
 
-            <div class="progress-text">
-                Current Progress: 100%
+            <div class="completed-status">
+                Completed · 100%
             </div>
 
         </div>
 
     {% empty %}
 
-        <div class="skill-card">
-            <p>No skills completed yet.</p>
+        <div class="empty-card">
+            No skills completed yet.
         </div>
 
     {% endfor %}
@@ -230,4 +605,5 @@
 </div>
 
 </body>
+
 </html>
